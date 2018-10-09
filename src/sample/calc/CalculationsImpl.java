@@ -1,8 +1,10 @@
-package sample;
+package sample.calc;
 
 import javafx.collections.ObservableList;
+import sample.Event;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class CalculationsImpl implements Calculations {
 
@@ -18,7 +20,7 @@ public class CalculationsImpl implements Calculations {
     }
 
     @Override
-    public double calculateMathHope(ObservableList<Event> list) {
+    public double calculateMathHope(List<Event> list) {
 
         double mathHope = 0;
 
@@ -29,7 +31,7 @@ public class CalculationsImpl implements Calculations {
     }
 
     @Override
-    public double calculateMathHope(ObservableList<Event> list, int pow) {
+    public double calculateMathHope(List<Event> list, int pow) {
         double mathHope = 0;
 
         for (Event event : list) {
@@ -48,7 +50,7 @@ public class CalculationsImpl implements Calculations {
     }
 
     @Override
-    public double calculateDispersion(ObservableList<Event> list) {
+    public double calculateDispersion(List<Event> list) {
         return calculateMathHope(list, 2) - Math.pow(calculateMathHope(list), 2);
     }
 
