@@ -1,15 +1,20 @@
 package sample.calc;
 
-import javafx.collections.ObservableList;
-import sample.Event;
-
-import java.util.List;
-import java.util.Set;
-
 public interface Calculations {
-    double calculateVibirkoveSerednye();
-    double calculateMathHope(List<Event> list);
-    double calculateMathHope(List<Event> list, int pow);
-    double calculateVybyrkovuDispersion();
-    double calculateDispersion(List<Event> list);
+
+    static double[] generateRandomArray(int min, int max, int n) {
+        double[] randomArray = new double[n];
+        for (int i = 0; i < randomArray.length; i++) {
+            randomArray[i] = (Math.random() * ((max - min) + 1)) + min;
+        }
+        return randomArray;
+    }
+
+    double calculateVibirkoveSerednye(double[] array);
+
+    double calculateVybyrkovuDispersion(double[] array);
+
+    double calculateKvVidhylennia(double[] array);
+
+    double koefKoreliatsii(double[] x, double[] y);
 }

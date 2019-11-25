@@ -52,7 +52,7 @@ public class Interval {
             }
         }
 
-        this.frequencyOfHits = numberOfVariables / 1000.0;
+        this.frequencyOfHits = (double)numberOfVariables / array.length;
     }
 
 

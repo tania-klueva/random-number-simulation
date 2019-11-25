@@ -1,81 +1,52 @@
 package sample.calc;
 
-import javafx.collections.ObservableList;
-import sample.Event;
-
-import java.util.Arrays;
-import java.util.List;
+import java.util.function.DoubleBinaryOperator;
+import java.util.function.DoubleUnaryOperator;
 
 public class CalculationsImpl implements Calculations {
 
-    private double[] array = new double[1000];
 
     @Override
-    public double calculateVibirkoveSerednye() {
+    public double calculateVibirkoveSerednye(double[] array) {
+        return getSum(array, DoubleUnaryOperator.identity()) / array.length;
+    }
+
+    @Override
+    public double calculateVybyrkovuDispersion(double[] array) {
+        return getSum(array, x -> Math.pow(x - calculateVibirkoveSerednye(array), 2)) / array.length;
+    }
+
+    @Override
+    public double calculateKvVidhylennia(double[] array) {
+        return Math.sqrt(calculateVybyrkovuDispersion(array));
+    }
+
+    @Override
+    public double koefKoreliatsii(double[] x, double[] y) {
+        return getSum(x, y, (xValue, yValue) -> (xValue - calculateVibirkoveSerednye(x)) * (yValue - calculateVibirkoveSerednye(y))) /
+                Math.sqrt(getSum(x, xValue -> Math.pow(xValue - calculateVibirkoveSerednye(x), 2)) * getSum(y, yValue -> Math.pow(yValue - calculateVibirkoveSerednye(y), 2)));
+    }
+
+    public double getSum(double[] array, DoubleUnaryOperator function) {
         double sum = 0;
-        for (int i = 0; i < this.array.length; i++) {
-            sum += this.array[i];
+        for (int i = 0; i < array.length; i++) {
+            sum += function.applyAsDouble(array[i]);
         }
-        return sum/this.array.length;
+        return sum;
     }
 
-    @Override
-    public double calculateMathHope(List<Event> list) {
-
-        double mathHope = 0;
-
-        for (Event event : list) {
-            mathHope+=event.getX()*event.getP();
-        }
-        return mathHope;
-    }
-
-    @Override
-    public double calculateMathHope(List<Event> list, int pow) {
-        double mathHope = 0;
-
-        for (Event event : list) {
-            mathHope+=Math.pow(event.getX(), pow)*event.getP();
-        }
-        return mathHope;
-    }
-
-    @Override
-    public double calculateVybyrkovuDispersion() {
+    public double getSum(double[] x, double[] y, DoubleBinaryOperator function) {
         double sum = 0;
-        for (int i = 0; i < this.array.length; i++) {
-            sum += Math.pow(this.array[i] - calculateVibirkoveSerednye(), 2);
+        for (int i = 0; i < x.length; i++) {
+            sum += function.applyAsDouble(x[i], y[i]);
         }
-        return sum/(this.array.length-1);
+        return sum;
     }
 
-    @Override
-    public double calculateDispersion(List<Event> list) {
-        return calculateMathHope(list, 2) - Math.pow(calculateMathHope(list), 2);
-    }
-
-    public void generateRandomArray(int m, int M){
-        array[0]= Math.pow(2, -m);
-        for (int i = 1; i < array.length; i++) {
-            array[i] = (M * array[i-1])%1;
-        }
-    }
-
-    public void printArr(){
+    public void printArr(double[] array) {
         for (double v : array) {
-            System.out.printf("%.15f",v);
-            System.out.println();
+            System.out.printf("%.15f\t", v);
         }
-    }
-
-    public double[] getArray() {
-        return array;
-    }
-
-    @Override
-    public String toString() {
-        return "CalculationsImpl{" +
-                "array=" + Arrays.toString(array) +
-                '}';
+        System.out.println();
     }
 }

@@ -17,26 +17,20 @@ public class IntervalList {
         this.intervals = intervals;
     }
 
-    public void fillList(int L, double start, double end, double[] array){
+    public void fillList(int n, double start, double end, double[] array) {
         intervals.clear();
-        double dx = (end - start)/L;
-        for (double i = start; i < end; i+=dx) {
+        int intervalsCount = 1 + log2(n);
+        double dx = (end - start) / intervalsCount;
+        for (double i = start; i < end; i += dx) {
             i = Double.parseDouble(new BigDecimal(i).setScale(1, BigDecimal.ROUND_HALF_UP) + "");
-            Interval interval = new Interval(i, i+dx);
+            Interval interval = new Interval(i, i + dx);
             interval.setNumberOfVariables(array);
             intervals.add(interval);
         }
     }
 
-    public void fillListWithDiskreteValues(List<Event> list, double[] array){
-        intervals.clear();
-        double sum = 0;
-        for (Event event : list) {
-            Interval interval = new Interval(sum, sum += event.getP());
-            interval.setNumberOfVariables(array);
-            interval.setValueOfX(event.getX());
-            intervals.add(interval);
-        }
+    public static int log2(int x) {
+        return (int) (Math.log(x) / Math.log(2));
     }
 
     @Override
