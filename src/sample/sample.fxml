@@ -18,8 +18,11 @@
         <ScrollPane prefHeight="651.0" prefWidth="859.0" vmax="11.0">
             <content>
                 <VBox>
+                    <Label text="M = "/>
+                    <TextField fx:id="textAreaM" prefHeight="25.0" prefWidth="58.0" text="21343"/>
+                    <Label text="m = "/>
+                    <TextField fx:id="textAream" prefHeight="25.0" prefWidth="60.0" text="14"/>
                     <Label text="Min = "/>
-
                     <TextField fx:id="textAreaMin" prefHeight="25.0" prefWidth="60.0" text="0"/>
                     <Label text="Max = "/>
                     <TextField fx:id="textAreaMax" prefHeight="25.0" prefWidth="60.0" text="50"/>

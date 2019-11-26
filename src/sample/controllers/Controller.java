@@ -42,6 +42,10 @@ public class Controller {
     public Label kK;
     @FXML
     public BarChart<String, Double> gistorgam;
+    @FXML
+    public TextField textAream;
+    @FXML
+    public TextField textAreaM;
 
     private IntervalList intervals = new IntervalList();
     private Calculations calculations = new CalculationsImpl();
