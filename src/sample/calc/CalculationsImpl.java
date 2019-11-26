@@ -27,6 +27,16 @@ public class CalculationsImpl implements Calculations {
                 Math.sqrt(getSum(x, xValue -> Math.pow(xValue - calculateVibirkoveSerednye(x), 2)) * getSum(y, yValue -> Math.pow(yValue - calculateVibirkoveSerednye(y), 2)));
     }
 
+    @Override
+    public double[] generateNormArray(int a, int b, int n, double u, double o, int N) {
+        double[] normArray = new double[N];
+        for (int i = 0; i < normArray.length; i++) {
+            double sum = getSum(Calculations.generateRandomArray(a, b, n), DoubleUnaryOperator.identity());
+            normArray[i] = u + (o / Math.sqrt((double) n / 12)) * (sum - (double) n / 2);
+        }
+        return normArray;
+    }
+
     public double getSum(double[] array, DoubleUnaryOperator function) {
         double sum = 0;
         for (int i = 0; i < array.length; i++) {

@@ -10,6 +10,26 @@ public interface Calculations {
         return randomArray;
     }
 
+    static double getMin(double[] array) {
+        double min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (min > array[i]) {
+                min = array[i];
+            }
+        }
+        return min;
+    }
+
+    static double getMax(double[] array) {
+        double max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (max < array[i]) {
+                max = array[i];
+            }
+        }
+        return max;
+    }
+
     double calculateVibirkoveSerednye(double[] array);
 
     double calculateVybyrkovuDispersion(double[] array);
@@ -17,4 +37,6 @@ public interface Calculations {
     double calculateKvVidhylennia(double[] array);
 
     double koefKoreliatsii(double[] x, double[] y);
+
+    double[] generateNormArray(int a, int b, int n, double u, double o, int N);
 }

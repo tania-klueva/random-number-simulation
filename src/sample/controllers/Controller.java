@@ -31,8 +31,6 @@ public class Controller {
     @FXML
     public ListView<Double> randomArrayListView1;
     @FXML
-    public ListView<Double> randomArrayListView2;
-    @FXML
     public Label mS;
     @FXML
     public Label dP;
@@ -43,9 +41,11 @@ public class Controller {
     @FXML
     public BarChart<String, Double> gistorgam;
     @FXML
-    public TextField textAream;
+    public TextField textAreaU;
     @FXML
-    public TextField textAreaM;
+    public TextField textAreaO;
+    @FXML
+    public TextField textAreaNum;
 
     private IntervalList intervals = new IntervalList();
     private Calculations calculations = new CalculationsImpl();
@@ -63,18 +63,18 @@ public class Controller {
         int min = Integer.parseInt(textAreaMin.getText());
         int max = Integer.parseInt(textAreaMax.getText());
         int n = Integer.parseInt(textAreaN.getText());
-        double[] array = Calculations.generateRandomArray(min, max, n);
-        double[] arrayY = Calculations.generateRandomArray(min, max, n);
-        intervals.fillList(n, min, max, array);
+        double u = Double.parseDouble(textAreaU.getText());
+        double o = Double.parseDouble(textAreaO.getText());
+        int N = Integer.parseInt(textAreaNum.getText());
+        double[] array = calculations.generateNormArray(min, max, n, u, o, N);
+
+        intervals.fillList(N, Calculations.getMin(array), Calculations.getMax(array), array);
         ObservableList<Interval> intervalsObservable = intervals.getIntervals();
         ObservableList<Double> randomArrayX = FXCollections.observableArrayList(convertToList(array));
-        ObservableList<Double> randomArrayY = FXCollections.observableArrayList(convertToList(arrayY));
         mS.setText("Математичне сподівання = " + calculations.calculateVibirkoveSerednye(array));
         dP.setText("Дисперсія = " + calculations.calculateVybyrkovuDispersion(array));
         kV.setText("Квадратичне відхилення = " + calculations.calculateKvVidhylennia(array));
-        kK.setText("Коєфіцієнт кореляції = " + calculations.koefKoreliatsii(array, arrayY));
         randomArrayListView1.setItems(randomArrayX);
-        randomArrayListView2.setItems(randomArrayY);
         gistorgam.getData().clear();
         gistorgam.getXAxis().setLabel("Інтервал");
         gistorgam.getYAxis().setLabel("Частота появи");
